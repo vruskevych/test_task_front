@@ -1,0 +1,71 @@
+
+
+<div class="col-12 justify-content-center">
+  <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+    <div class="col-12 text-center">
+      <h2>New Sale Creation</h2>
+    </div>
+    <div class="col-12 justify-content-center">
+      <div class="col-12 p-2 alert alert-danger" *ngIf="error"><strong>{{error}}</strong></div>
+      <iframe *ngIf="paymentUrl"
+        [src]="paymentUrl"
+        height="600"
+        width="1000"
+      ></iframe>
+      <div class="col-12 p-2">
+          <label for="product" class="col-3">Product Name</label>
+          <input name="product" type="string" id="product" [formControl]="product"/>
+      </div>
+
+      <div class="col-12 p-2">
+          <label for="cost" class="col-3">Price</label>
+          <input name="cost" type="number" id="cost" [formControl]="cost"/>
+      </div>
+
+      <div class="col-12 p-2">
+          <label for="currency" class="col-3">Currency</label>
+          <select name="currency" id="currency" [formControl]="currency">
+            <option *ngFor="let saleCurrency of saleCurrencies" value="{{saleCurrency.name}}">{{saleCurrency.name}}</option>
+          </select>
+      </div>
+
+      <div class="d-flex p-2">
+        <div class="col-3">&nbsp;</div>
+        <div class="col-9">
+          <input type="submit" value="Insert Payment Details"/>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="col-12">
+    <div class="col-12 text-center">
+      <h2>Recent Sales</h2>
+    </div>
+    <div class="col-12">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">DateTime</th>
+          <th scope="col">Serial Number</th>
+          <th scope="col">Description</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Currency</th>
+          <th scope="col">Payment Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let sale of salesList.items">
+          <td>{{sale.id}}</td>
+          <td>{{sale.created_at}}</td>
+          <td>{{sale.sale_id}}</td>
+          <td>{{sale.product}}</td>
+          <td>{{sale.cost}}</td>
+          <td>{{sale.currency}}</td>
+          <td>{{sale.sale_url}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
